@@ -82,29 +82,8 @@ data:
         header: true
         style: row
         columns: 4   
-  custom.css: |
-    .node-container {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 10px; /* Adjust spacing as needed */
-    }
-    .node {
-      flex: 1 1 calc(100% / 6 - 10px); /* 6 nodes per row, subtract gap size */
-      box-sizing: border-box;
-    }
-  custom.js: |
-    document.addEventListener('DOMContentLoaded', function() {
-      const nodes = document.querySelectorAll('.node');
-      const maxNodesPerRow = 6;
-      nodes.forEach((node, index) => {
-        if (index % maxNodesPerRow === 0) {
-          const row = document.createElement('div');
-          row.classList.add('node-row');
-          node.parentNode.appendChild(row);
-        }
-        document.querySelector('.node-row:last-child').appendChild(node);
-      });
-    });
+  custom.css: ""
+  custom.js: ""
 
   bookmarks.yaml: |
     - Quick:
@@ -464,14 +443,11 @@ data:
           memory: true
           showLabel: true
           label: "K3S Cluster"
-    - kubernetes:
         nodes:
           show: true
           cpu: true
           memory: true
           showLabel: true
-          layout:
-            maxNodesPerRow: 6  # Custom attribute to control the max number of nodes per row
     - search:
         provider: duckduckgo
         target: _blank
