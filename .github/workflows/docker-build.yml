@@ -1,0 +1,33 @@
+name: Build and Deploy to Kubernetes
+
+on:
+  push:
+    branches:
+      - main
+    paths-ignore:
+      - 'manifest/deployment.yaml'
+
+permissions:
+  id-token: write   # This is required for requesting the JWT
+  contents: write    # This is required for actions/checkout
+
+
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v3
+
+    - name: Update Kubernetes manifest
+      run: |
+        COMMIT_HASH=$(git rev-parse --short HEAD)
+        sed -i "s/{{COMMIT_HASH}}/$COMMIT_HASH/" manifest/deployment.yaml
+        git config --local user.email "${{ secrets.EMAIL_ADDRESS }}"  
+        git config --local user.name "${{ github.actor }}"  
+        
+        git add manifest/deployment.yaml
+        git commit -m "Update image version to workflow #${{ github.run_number }}"
+        git push origin main

@@ -541,6 +541,8 @@ metadata:
   namespace: default
   labels:
     app.kubernetes.io/name: homepage
+  annotations:
+    argocd.argoproj.io/sync-wave: "0"
 spec:
   revisionHistoryLimit: 3
   replicas: 1
@@ -553,6 +555,8 @@ spec:
     metadata:
       labels:
         app.kubernetes.io/name: homepage
+      annotations:
+        git-commit-hash: "{{COMMIT_HASH}}"
     spec:
       serviceAccountName: homepage
       automountServiceAccountToken: true
