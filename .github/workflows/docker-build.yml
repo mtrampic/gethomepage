@@ -21,10 +21,14 @@ jobs:
     - name: Checkout code
       uses: actions/checkout@v3
 
+    - name: Reset git-commit-hash placeholder
+      run: |
+        sed -i 's/git-commit-hash: ".*"/git-commit-hash: "{{COMMIT_HASH}}"/' manifest/deployment.yaml
+
     - name: Update Kubernetes manifest
       run: |
         COMMIT_HASH=$(git rev-parse --short HEAD)
-        sed -i "s/git-commit-hash: \"\.*\"/git-commit-hash: \"{{COMMIT_HASH}}\"/" manifest/deployment.yaml
+        sed -i "s/{{COMMIT_HASH}}/$COMMIT_HASH/" manifest/deployment.yaml
         git config --local user.email "${{ secrets.EMAIL_ADDRESS }}"  
         git config --local user.name "${{ github.actor }}"  
         
