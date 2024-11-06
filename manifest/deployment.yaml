@@ -557,7 +557,7 @@ spec:
       labels:
         app.kubernetes.io/name: homepage
       annotations:
-        git-commit-hash: "6aca7de"
+        git-commit-hash: "c46521a"
     spec:
       serviceAccountName: homepage
       automountServiceAccountToken: true
