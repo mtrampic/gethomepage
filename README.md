@@ -42,3 +42,5 @@ This document provides instructions for deploying the homepage application using
 
 Following these steps will deploy the homepage application using ArgoCD, making it accessible at `homepage.default.k3s`.
 # homepage
+
+
